@@ -9,6 +9,7 @@ import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 
 public class NIOClient {
+
     // 通道管理器
     private Selector selector;
 
@@ -36,7 +37,9 @@ public class NIOClient {
             // 选择一组可以进行I/O操作的事件，放在selector中,客户端的该方法不会阻塞，
             // 这里和服务端的方法不一样，查看api注释可以知道，当至少一个通道被选中时，
             // selector的wakeup方法被调用，方法返回，而对于客户端来说，通道一直是被选中的
-            selector.select(); // 获得selector中选中的项的迭代器
+            int j=0;
+           int count= selector.select(); // 获得selector中选中的项的迭代器
+            System.out.println("j="+j++);
             Iterator ite = this.selector.selectedKeys().iterator();
             while (ite.hasNext()) {
                 SelectionKey key = (SelectionKey) ite.next(); // 删除已选的key,以防重复处理

@@ -32,8 +32,10 @@ public class NIOServer {
     // 采用轮训的方式监听selector上是否有需要处理的事件，如果有，进行处理
     public void listen() throws Exception {
         System.out.println("start server");
+        int j=0;
         // 轮询访问selector
         while (true) {
+            System.out.println("j="+j++);
             // 当注册事件到达时，方法返回，否则该方法会一直阻塞
             selector.select();
             // 获得selector中选中的相的迭代器，选中的相为注册的事件
@@ -47,7 +49,6 @@ public class NIOServer {
                     ServerSocketChannel server = (ServerSocketChannel) key.channel();
                     // 获得和客户端连接的通道
                     SocketChannel channel = server.accept();
-
                     // 设置成非阻塞
                     channel.configureBlocking(false);
                     // 在这里可以发送消息给客户端
